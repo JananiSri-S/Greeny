@@ -1,0 +1,283 @@
+<!-- This code was written by a human, not AI. -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Greeny - E-commerce</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <style>
+    * {margin:0; padding:0; box-sizing:border-box; font-family:"Poppins",sans-serif;}
+    body {background:#f4fdf4; color:#222; line-height:1.6;}
+
+    /* Navbar */
+    nav {
+      background:#1b5e20; color:white; display:flex;
+      justify-content:space-between; align-items:center;
+      padding:15px 20px; position:sticky; top:0; z-index:1000;
+      box-shadow:0 2px 8px rgba(27,94,32,0.08);
+    }
+    .logo {font-size:1.7rem; font-weight:bold;}
+    .nav-links {display:flex; list-style:none;}
+    .nav-links li {margin:0 15px;}
+    .nav-links a {text-decoration:none; color:#f4fdf4; font-weight:500; transition:color 0.3s;}
+    .nav-links a:hover {color:#a5d6a7;}
+    .menu-toggle {display:none; flex-direction:column; cursor:pointer;}
+    .menu-toggle span {height:3px;width:25px;background:white;margin:4px 0;transition:0.3s;}
+
+    /* Hero */
+    .hero {
+      height:85vh; background:url("https://images.pexels.com/photos/4505452/pexels-photo-4505452.jpeg?auto=compress&cs=tinysrgb&w=1600") center/cover no-repeat;
+      display:flex; align-items:center; justify-content:center; text-align:center; color:white; padding:20px;
+      position:relative;
+    }
+    .hero::after {
+      content:"";
+      position:absolute;
+      top:0; left:0; width:100%; height:100%;
+      background:rgba(27,94,32,0.25);
+      z-index:0;
+    }
+    .hero > div {position:relative; z-index:1;}
+    .hero h1 {font-size:3.2rem; margin-bottom:10px; text-shadow:2px 2px 6px rgba(0,0,0,0.6); animation:fadeDown 1s;}
+    .hero p {font-size:1.3rem; margin-bottom:20px; text-shadow:1px 1px 4px rgba(0,0,0,0.6); animation:fadeUp 1.2s;}
+    .hero button {padding:12px 25px; border:none; background:#43a047; color:white; font-size:1rem; cursor:pointer; border-radius:5px; transition:0.3s; animation:fadeUp 1.5s;}
+    .hero button:hover {background:#2e7d32;}
+
+    /* Highlight Bar */
+    .highlight-bar {
+      background:linear-gradient(90deg,#a5d6a7 0%,#e8f5e9 100%);
+      color:#1b5e20;
+      text-align:center;
+      padding:12px 0;
+      font-size:1.1rem;
+      font-weight:500;
+      letter-spacing:1px;
+      box-shadow:0 2px 8px rgba(27,94,32,0.06);
+    }
+
+    /* Categories */
+    .categories {padding:60px 20px; text-align:center;}
+    .categories h2 {margin-bottom:30px; font-size:2.2rem; color:#1b5e20;}
+    .cat-grid {display:grid; grid-template-columns:repeat(auto-fit,minmax(250px,1fr)); gap:20px;}
+    .cat {position:relative; overflow:hidden; border-radius:10px; cursor:pointer; box-shadow:0 2px 8px rgba(27,94,32,0.08);}
+    .cat img {width:100%; height:250px; object-fit:cover; transition:transform 0.5s;}
+    .cat:hover img {transform:scale(1.1);}
+    .cat span {position:absolute; bottom:10px; left:10px; background:#1b5e20cc; color:white; padding:8px 15px; border-radius:5px; font-weight:600;}
+
+    /* Products */
+    .products {padding:60px 20px;}
+    .products h2 {text-align:center; margin-bottom:30px; font-size:2.2rem; color:#1b5e20;}
+    .product-grid {display:grid; grid-template-columns:repeat(auto-fit,minmax(250px,1fr)); gap:20px;}
+    .product {background:white; border-radius:10px; overflow:hidden; box-shadow:0 4px 12px rgba(27,94,32,0.08); text-align:center; padding-bottom:15px; transition:transform 0.3s;}
+    .product:hover {transform:translateY(-5px);}
+    .product img {width:100%; height:220px; object-fit:cover;}
+    .product h3 {margin:15px 0 10px; color:#333;}
+    .product p {color:#1b5e20; font-weight:bold;}
+    .product button {margin-top:10px; padding:8px 15px; border:none; background:#1b5e20; color:white; border-radius:5px; cursor:pointer; transition:0.3s;}
+    .product button:hover {background:#0d3b0d;}
+
+    /* About Us */
+    .about {background:#e8f5e9; padding:60px 20px; text-align:center;}
+    .about h2 {font-size:2.2rem; margin-bottom:20px; color:#1b5e20;}
+    .about p {max-width:700px; margin:0 auto; font-size:1.1rem; color:#333; line-height:1.7;}
+
+    /* Blog */
+    .blog {padding:60px 20px; text-align:center;}
+    .blog h2 {font-size:2.2rem; margin-bottom:30px; color:#1b5e20;}
+    .blog-grid {display:grid; grid-template-columns:repeat(auto-fit,minmax(300px,1fr)); gap:20px;}
+    .blog-post {background:white; border-radius:10px; overflow:hidden; box-shadow:0 4px 12px rgba(27,94,32,0.08);}
+    .blog-post img {width:100%; height:200px; object-fit:cover;}
+    .blog-post h3 {margin:15px; font-size:1.2rem; color:#1b5e20;}
+    .blog-post p {margin:0 15px 15px; font-size:0.95rem; color:#555; text-align:left;}
+
+    /* Testimonials */
+    .testimonials {background:#f1f8f1; padding:60px 20px; text-align:center;}
+    .testimonials h2 {margin-bottom:30px; font-size:2.2rem; color:#1b5e20;}
+    .testi-grid {display:grid; grid-template-columns:repeat(auto-fit,minmax(300px,1fr)); gap:20px;}
+    .testi {background:white; padding:20px; border-radius:10px; box-shadow:0 4px 6px rgba(0,0,0,0.1);}
+    .testi img {width:60px; height:60px; border-radius:50%; object-fit:cover; margin-bottom:10px;}
+    .testi p {font-style:italic; margin-bottom:10px; color:#333;}
+    .testi h4 {color:#1b5e20;}
+
+    /* Newsletter */
+    .newsletter {padding:60px 20px; text-align:center; background:#e8f5e9;}
+    .newsletter h2 {margin-bottom:15px; color:#1b5e20;}
+    .newsletter input {padding:10px; width:250px; max-width:80%; border:1px solid #ccc; border-radius:5px; margin-right:10px;}
+    .newsletter button {padding:10px 20px; border:none; background:#1b5e20; color:white; border-radius:5px; cursor:pointer;}
+    .newsletter button:hover {background:#0d3b0d;}
+    .newsletter .newsletter-info {
+      margin-top:18px;
+      color:#388e3c;
+      font-size:1rem;
+      font-style:italic;
+    }
+
+    /* Footer */
+    footer {background:#1b5e20; color:white; text-align:center; padding:30px 20px;}
+    .footer-links {margin-bottom:15px;}
+    .footer-links a {color:white; margin:0 10px; text-decoration:none; font-weight:500; transition:color 0.3s;}
+    .footer-links a:hover {color:#a5d6a7;}
+    .social-icons {margin-bottom:15px;}
+    .social-icons a {display:inline-block; margin:0 8px; color:white; font-size:1.2rem; text-decoration:none; transition:transform 0.3s;}
+    .social-icons a:hover {transform:scale(1.2); color:#a5d6a7;}
+    footer p {font-size:0.9rem;}
+
+    /* Animations */
+    @keyframes fadeDown {from{opacity:0; transform:translateY(-20px);} to{opacity:1; transform:translateY(0);}}
+    @keyframes fadeUp {from{opacity:0; transform:translateY(20px);} to{opacity:1; transform:translateY(0);}}
+
+    /* Responsive */
+    @media(max-width:768px){
+      .menu-toggle{display:flex;}
+      .nav-links{display:none; flex-direction:column; background:#1b5e20; position:absolute; top:60px; right:0; width:200px; text-align:right; padding:10px 20px;}
+      .nav-links.active{display:flex;}
+      .nav-links li{margin:10px 0;}
+      .highlight-bar{font-size:1rem;}
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Navigation -->
+  <nav>
+    <div class="logo">🌱 Greeny</div>
+    <ul class="nav-links">
+      <li><a href="#home">Home</a></li>
+      <li><a href="#shop">Shop</a></li>
+      <li><a href="#categories">Categories</a></li>
+      <li><a href="#blog">Blog</a></li>
+      <li><a href="#about">About</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+    <div class="menu-toggle" id="menu-toggle">
+      <span></span><span></span><span></span>
+    </div>
+  </nav>
+
+  <!-- Highlight Bar -->
+  <div class="highlight-bar">
+    🌿 Free shipping on orders over $50! | 10% off your first order with code <b>GREENY10</b> 🌿
+  </div>
+
+  <!-- Hero -->
+  <section class="hero" id="home">
+    <div>
+      <h1>Eco-friendly Living</h1>
+      <p>Shop sustainable products for a greener tomorrow 🌍</p>
+      <button>Explore Now</button>
+    </div>
+  </section>
+
+  <!-- Categories -->
+  <section class="categories" id="categories">
+    <h2>Shop by Category</h2>
+    <div class="cat-grid">
+      <div class="cat">
+        <img src="https://images.pexels.com/photos/3076899/pexels-photo-3076899.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Plants">
+        <span>Plants</span>
+      </div>
+      <div class="cat">
+        <img src="https://tse1.mm.bing.net/th/id/OIP.SE1DM1ajJfIIL0k8i-sIwAHaEO?r=0&rs=1&pid=ImgDetMain&o=7&rm=3" alt="Eco Bags">
+        <span>Bags</span>
+      </div>
+      <div class="cat">
+        <img src="https://images.pexels.com/photos/3735210/pexels-photo-3735210.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Eco Bottles">
+        <span>Bottles</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- Products -->
+  <section class="products" id="shop">
+    <h2>Featured Products</h2>
+    <div class="product-grid">
+      <div class="product">
+        <img src="https://tse2.mm.bing.net/th/id/OIP.K9NhLCyHG9Q1YzROwPLmTAHaEx?r=0&rs=1&pid=ImgDetMain&o=7&rm=3" alt="Indoor Plant">
+        <h3>Indoor Plant</h3>
+        <p>$15</p>
+        <button>Add to Cart</button>
+      </div>
+      <div class="product">
+        <img src="https://tse1.mm.bing.net/th/id/OIP.SE1DM1ajJfIIL0k8i-sIwAHaEO?r=0&rs=1&pid=ImgDetMain&o=7&rm=3" alt="Eco Bag">
+        <h3>Eco Bag</h3>
+        <p>$12</p>
+        <button>Add to Cart</button>
+      </div>
+      <div class="product">
+        <img src="https://images.pexels.com/photos/3735210/pexels-photo-3735210.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Bamboo Bottle">
+        <h3>Bamboo Bottle</h3>
+        <p>$20</p>
+        <button>Add to Cart</button>
+      </div>
+      <div class="product">
+        <img src="https://cdn.shopify.com/s/files/1/1221/0370/products/SaavyNaturals-Products-Soap-3_1024x1024.png?v=1465922241" alt="Organic Soap">
+        <h3>Organic Soap</h3>
+        <p>$8</p>
+        <button>Add to Cart</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- About Us -->
+  <section class="about" id="about">
+    <h2>About Greeny</h2>
+    <p>At Greeny, we believe in living sustainably without compromising on style or comfort. Our mission is to provide eco-friendly products that inspire people to make greener choices every day. From reusable bags to organic self-care items, every product is crafted with love for both you and the planet 🌱.</p>
+  </section>
+
+  <!-- Blog -->
+  <section class="blog" id="blog">
+    <h2>From Our Blog</h2>
+    <div class="blog-grid">
+      <div class="blog-post">
+        <img src="https://images.pexels.com/photos/3735719/pexels-photo-3735719.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Zero-Waste Lifestyle">
+        <h3>10 Tips for a Zero-Waste Lifestyle</h3>
+        <p>Discover easy ways to reduce waste in your daily routine and make eco-living second nature...</p>
+      </div>
+      <div class="blog-post">
+        <img src="https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=600&q=80" alt="Bamboo Future">
+        <h3>Why Bamboo is the Future</h3>
+        <p>Learn how bamboo products are changing the way we think about sustainability and everyday use...</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Testimonials -->
+  <section class="testimonials">
+    <h2>What Our Customers Say</h2>
+    <div class="testi-grid">
+      <div class="testi"><img src="https://randomuser.me/api/portraits/women/44.jpg"><p>"Absolutely love the eco bag! Stylish and sustainable."</p><h4>- Sarah M.</h4></div>
+      <div class="testi"><img src="https://randomuser.me/api/portraits/men/32.jpg"><p>"The bamboo bottle keeps my water cool all day. Highly recommend!"</p><h4>- James K.</h4></div>
+      <div class="testi"><img src="https://randomuser.me/api/portraits/women/68.jpg"><p>"Fast delivery and amazing quality products."</p><h4>- Priya S.</h4></div>
+    </div>
+  </section>
+
+  <!-- Newsletter -->
+  <section class="newsletter">
+    <h2>Join Our Green Community</h2>
+    <p>Subscribe for exclusive deals and eco-friendly tips 🌱</p>
+    <input type="email" placeholder="Enter your email">
+    <button>Subscribe</button>
+  </section>
+
+  <!-- Footer -->
+  <footer id="contact">
+    <div class="footer-links">
+      <a href="#home">Home</a> | <a href="#shop">Shop</a> | <a href="#about">About</a> | <a href="#blog">Blog</a> | <a href="#contact">Contact</a>
+    </div>
+    <div class="social-icons">
+      <a href="#"><i class="fab fa-facebook"></i></a>
+      <a href="#"><i class="fab fa-twitter"></i></a>
+      <a href="#"><i class="fab fa-instagram"></i></a>
+      <a href="#"><i class="fab fa-linkedin"></i></a>
+    </div>
+    <p>© 2025 Greeny. All rights reserved.</p>
+  </footer>
+
+  <script>
+    const menuToggle=document.getElementById("menu-toggle");
+    const navLinks=document.querySelector(".nav-links");
+    menuToggle.addEventListener("click",()=>{navLinks.classList.toggle("active");});
+  </script>
+</body>
+</html>
